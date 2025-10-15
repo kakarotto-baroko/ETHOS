@@ -1,21 +1,21 @@
 {
-  "cadence": "weekly",
+  "cadence": "t+3",
   "stages": {
     "S1": {
       "pool": [
-        "Karak"
+        "OLAS"
       ]
     },
     "S2": {
       "pool": [
-        "OLAS",
-        "ZKM",
-        "Ondo"
+        "Karak",
+        "Seed1"
       ]
     },
     "S3": {
       "pool": [
-        "Seed1"
+        "ZKM",
+        "Ondo"
       ]
     },
     "S4": {
@@ -25,8 +25,6 @@
       "pool": []
     }
   },
-  "fake_start": 1,
-  "watchlist": [
-    "Ondo"
-  ]
+  "fake_start": 0,
+  "watchlist": []
 }
