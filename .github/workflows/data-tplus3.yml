@@ -3,45 +3,47 @@ name: Data T+3
 on:
   workflow_dispatch:
   schedule:
-    - cron: "0 0 */3 * *"  # 每 3 天（T+3）UTC 00:00 自动运行一次
+    - cron: "10 */72 * * *"   # 每三天执行一次，延后10分钟，避免与Daily冲突
 
 jobs:
-  build-data:
+  build:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
 
     steps:
-      - name: Set up job
+      - name: Checkout repository
         uses: actions/checkout@v4
+
+      # ✅ 预热修复块（延时30秒，确保环境完全加载）
+      - name: Warm-up delay
+        run: |
+          echo "🔁 Waiting 30s to ensure secrets & environment are ready..."
+          sleep 30
 
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: "3.x"
 
-      - name: Install deps
-        run: |
-          echo "📦 Installing dependencies..."
-          python -m pip install --upgrade pip
-          pip install -r requirements.txt || echo "⚠️ No requirements.txt found, skipping..."
-
       - name: Generate data (T+3)
         run: |
-          echo "🟢 Running backend/main.py for T+3 cadence..."
-          mkdir -p output
-          python backend/main.py --cadence "t+3" || echo "⚠️ Python generation skipped or errored"
-          echo "✅ Data generation complete."
+          python backend/main.py --cadence "t+3"
 
-      - name: Commit output only
+      - name: Commit and push data
         run: |
-          echo "📝 Preparing to commit updated output files..."
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add output/
-          git commit -m "ci(data): T+3 refresh $(date -u +"%Y-%m-%d %H:%M UTC")" || echo "⚠️ No changes to commit"
-          git push
+          git add output/*.json
+          git commit -m "Auto update data (T+3)" || echo "No changes to commit"
+          git push origin main
 
-      - name: Trigger Cloudflare Pages Redeploy
-        if: success()
+      - name: Trigger Cloudflare Pages Deploy
+        env:
+          CF_DEPLOY_HOOK: ${{ secrets.CF_DEPLOY_HOOK }}
         run: |
-          echo "🚀 Triggering Cloudflare redeploy..."
-          curl -X POST -d '{}' "${{ secrets.CF_DEPLOY_HOOK }}"
+          if [ -z "${CF_DEPLOY_HOOK}" ]; then
+            echo "❌ CF_DEPLOY_HOOK not set"; exit 1;
+          fi
+          echo "🚀 Triggering Cloudflare Deploy..."
+          curl -X POST "${CF_DEPLOY_HOOK}"
