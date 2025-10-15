@@ -2,18 +2,13 @@ name: Data T+3
 
 on:
   workflow_dispatch:
-  # 你也可以改成定时触发（UTC）：每3小时一次示例
-  # schedule:
-  #   - cron: "0 */3 * * *"
 
-# 关键：允许工作流写回仓库（否则 git push 会 403）
 permissions:
   contents: write
 
 jobs:
   build-data:
     runs-on: ubuntu-latest
-
     steps:
       - name: Set up job
         uses: actions/checkout@v4
@@ -23,29 +18,43 @@ jobs:
         with:
           python-version: "3.x"
 
-      - name: Install deps
+      - name: Install deps (safe)
+        shell: bash
         run: |
           python -m pip install --upgrade pip
-          pip install -r requirements.txt
+          if [ -f "backend/requirements.txt" ]; then
+            echo "Found backend/requirements.txt, installing…"
+            pip install -r backend/requirements.txt
+          else
+            echo "No backend/requirements.txt, skip deps install."
+          fi
 
       - name: Generate data (t+3)
-        env:
-          CADENCE: "t3"
+        shell: bash
         run: |
-          python backend/main.py --cadence "$CADENCE" || echo "demo only"
+          python backend/main.py --cadence "t3" || echo "t+3: generator returned non-zero, continue"
 
       - name: Commit output only
+        shell: bash
         run: |
           git config user.name  "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add output/*.json
-          git commit -m "ci(data): t+3 refresh" || echo "no changes"
-          git push
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add output/*.json || true
+          if ! git diff --cached --quiet; then
+            git commit -m "ci(data): t+3 refresh"
+            git push
+          else
+            echo "No changes in /output; skip commit."
+          fi
 
       - name: Trigger Cloudflare Pages Redeploy
-        # 成功才触发
         if: ${{ success() }}
         env:
-          CF_PAGES_HOOK_URL: ${{ secrets.CF_PAGES_HOOK_URL }}
+          CF_DEPLOY_HOOK: ${{ secrets.CF_DEPLOY_HOOK }}
         run: |
-          [ -n "$CF_PAGES_HOOK_URL" ] && curl -X POST "$CF_PAGES_HOOK_URL" || echo "skip CF redeploy: no hook"
+          if [ -z "$CF_DEPLOY_HOOK" ]; then
+            echo "CF_DEPLOY_HOOK not set; skip redeploy."
+            exit 0
+          fi
+          echo "Triggering CF redeploy…"
+          curl -sS -X POST "$CF_DEPLOY_HOOK" -H "Content-Type: application/json" -d '{}' | tee /dev/stderr
