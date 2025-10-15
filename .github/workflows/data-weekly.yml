@@ -2,13 +2,13 @@ name: Data Weekly
 
 on:
   workflow_dispatch:
-
-permissions:
-  contents: write
+  schedule:
+    - cron: "0 0 * * 0"  # 每周日 UTC 00:00 自动运行一次
 
 jobs:
   build-data:
     runs-on: ubuntu-latest
+
     steps:
       - name: Set up job
         uses: actions/checkout@v4
@@ -18,43 +18,30 @@ jobs:
         with:
           python-version: "3.x"
 
-      - name: Install deps (safe)
-        shell: bash
+      - name: Install deps
         run: |
+          echo "📦 Installing dependencies..."
           python -m pip install --upgrade pip
-          if [ -f "backend/requirements.txt" ]; then
-            echo "Found backend/requirements.txt, installing…"
-            pip install -r backend/requirements.txt
-          else
-            echo "No backend/requirements.txt, skip deps install."
-          fi
+          pip install -r requirements.txt || echo "⚠️ No requirements.txt found, skipping..."
 
       - name: Generate data (weekly)
-        shell: bash
         run: |
-          python backend/main.py --cadence "weekly" || echo "weekly: generator returned non-zero, continue"
+          echo "🟢 Running backend/main.py for weekly cadence..."
+          mkdir -p output
+          python backend/main.py --cadence "weekly" || echo "⚠️ Python generation skipped or errored"
+          echo "✅ Data generation complete."
 
       - name: Commit output only
-        shell: bash
         run: |
-          git config user.name  "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add output/*.json || true
-          if ! git diff --cached --quiet; then
-            git commit -m "ci(data): weekly refresh"
-            git push
-          else
-            echo "No changes in /output; skip commit."
-          fi
+          echo "📝 Preparing to commit updated output files..."
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add output/
+          git commit -m "ci(data): weekly refresh $(date -u +"%Y-%m-%d %H:%M UTC")" || echo "⚠️ No changes to commit"
+          git push
 
       - name: Trigger Cloudflare Pages Redeploy
-        if: ${{ success() }}
-        env:
-          CF_DEPLOY_HOOK: ${{ secrets.CF_DEPLOY_HOOK }}
+        if: success()
         run: |
-          if [ -z "$CF_DEPLOY_HOOK" ]; then
-            echo "CF_DEPLOY_HOOK not set; skip redeploy."
-            exit 0
-          fi
-          echo "Triggering CF redeploy…"
-          curl -sS -X POST "$CF_DEPLOY_HOOK" -H "Content-Type: application/json" -d '{}' | tee /dev/stderr
+          echo "🚀 Triggering Cloudflare redeploy..."
+          curl -X POST -d '{}' "${{ secrets.CF_DEPLOY_HOOK }}"
