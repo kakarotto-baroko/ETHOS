@@ -1,0 +1,58 @@
+{
+  "schema_version": "1.3.x",
+  "cadence": "daily",
+  "updated_at": "2025-10-15 02:49 UTC",
+  "market_regime": {
+    "s5_regime": "neutral",
+    "score": 0.46
+  },
+  "items": [
+    {
+      "project": "Karak",
+      "bucket": "1000x",
+      "structure": "再质押 (Restaking 协议)",
+      "stage": "S1",
+      "score_total": 35.1,
+      "confidence": 0.62,
+      "current_price": "—",
+      "agents": {
+        "A1_vol_mcap": 0.61,
+        "A2_tvl": 0.64,
+        "A4_depth": 0.48,
+        "B1_leverage": 0.52,
+        "B2_whale": 0.55,
+        "B3_dev": 0.5,
+        "B4_ecosys": 0.47
+      },
+      "metrics": {
+        "TVL_3d": 0.06,
+        "VolMcap_1d": 0.036
+      },
+      "actions": "仅事件/短线；严格风控"
+    },
+    {
+      "project": "ZKM",
+      "bucket": "10000x",
+      "structure": "零知识基础设施 (ZK Infra)",
+      "stage": "S2",
+      "score_total": 34.2,
+      "confidence": 0.6,
+      "current_price": "—",
+      "agents": {
+        "A1_vol_mcap": 0.66,
+        "A2_tvl": 0.72,
+        "A3_sns": 0.59,
+        "A4_depth": 0.51,
+        "B1_leverage": 0.63,
+        "B2_whale": 0.61,
+        "B3_dev": 0.53,
+        "B4_ecosys": 0.49
+      },
+      "metrics": {
+        "TVL_3d": 0.06,
+        "VolMcap_1d": 0.064
+      },
+      "actions": "结构强化期，短期可观察"
+    }
+  ]
+}

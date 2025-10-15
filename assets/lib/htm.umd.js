@@ -1,0 +1,1 @@
+(function(g){ g.htm={bind:function(h){return function(){return {}}}}})(this);

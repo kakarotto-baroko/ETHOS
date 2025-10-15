@@ -1,0 +1,2 @@
+/*! placeholder preact.umd.js (replace with official for production) */
+(function(g){function h(t,props){return {t,props:props||{}}} function render(v,root){ root.textContent=""; } g.preact={h:h,render:render,Fragment:function(){}};})(this);

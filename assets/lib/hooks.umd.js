@@ -1,0 +1,1 @@
+(function(g){ g.preactHooks={useState:(x)=>[x,function(){}],useEffect:function(){},useMemo:(f)=>f(),useRef:(v)=>({current:v})};})(this);

@@ -1,0 +1,10 @@
+{
+  "explore_exploit": {
+    "explore": 0.6,
+    "exploit": 0.4
+  },
+  "promotion_quota": {
+    "S0p_to_S1": 3
+  },
+  "fake_start_penalty": 2
+}

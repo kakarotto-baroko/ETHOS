@@ -1,0 +1,16 @@
+{
+  "L6c_feedback_learning": {
+    "false_positive_rate": 0.08
+  },
+  "L6b_signal_reconstruction": {
+    "signal_trust_index": 0.82
+  },
+  "L6a_noise_detection": {
+    "noise_density": 0.12
+  },
+  "L6d_dynamic_adjustment": {
+    "alpha": 0.2,
+    "beta": 0.5,
+    "gamma": 0.3
+  }
+}
