@@ -2,20 +2,10 @@
   "cadence": "daily",
   "stages": {
     "S1": {
-      "pool": [
-        "Karak",
-        "OLAS",
-        "Seed1",
-        "ProtoA",
-        "ProtoB",
-        "NewX"
-      ]
+      "pool": []
     },
     "S2": {
-      "pool": [
-        "ZKM",
-        "Ondo"
-      ]
+      "pool": []
     },
     "S3": {
       "pool": []
@@ -27,10 +17,6 @@
       "pool": []
     }
   },
-  "watchlist": [
-    "Seed1",
-    "ProtoA",
-    "ProtoB"
-  ],
-  "fake_start": 0
+  "fake_start": 0,
+  "watchlist": []
 }
