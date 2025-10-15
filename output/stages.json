@@ -1,1 +1,29 @@
-{"cadence":"daily","stages":{"S1":{"pool":[]},"S2":{"pool":[]},"S3":{"pool":[]},"S4":{"pool":[]},"S5":{"pool":[]}},"fake_start":0,"watchlist":[]}
+{
+  "cadence": "daily",
+  "stages": {
+    "S1": {
+      "pool": [
+        "Karak",
+        "OLAS"
+      ]
+    },
+    "S2": {
+      "pool": [
+        "Seed1",
+        "ZKM",
+        "Ondo"
+      ]
+    },
+    "S3": {
+      "pool": []
+    },
+    "S4": {
+      "pool": []
+    },
+    "S5": {
+      "pool": []
+    }
+  },
+  "fake_start": 0,
+  "watchlist": []
+}
