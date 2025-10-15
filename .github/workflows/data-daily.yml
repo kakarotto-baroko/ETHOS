@@ -70,6 +70,6 @@ jobs:
             exit 1
           fi
             - name: Trigger Cloudflare Pages Redeploy
-    if: success()
-    run: |
+        if: success()
+        run: |
       curl -X POST -d {} "$CF_DEPLOY_HOOK"
