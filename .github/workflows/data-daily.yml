@@ -1,13 +1,14 @@
 name: Data Daily
 
 on:
-  workflow_dispatch: {}
+  workflow_dispatch:
   schedule:
-    - cron: "0 0 * * *"   # 每天 UTC 00:00，可保留或只手动跑
+    - cron: "0 0 * * *"  # 每天 UTC 00:00 自动运行
 
 jobs:
   build-data:
     runs-on: ubuntu-latest
+
     steps:
       - name: Set up job
         uses: actions/checkout@v4
@@ -20,56 +21,21 @@ jobs:
       - name: Install deps
         run: |
           python -m pip install --upgrade pip
-          pip install -r requirements.txt || true
+          pip install -r requirements.txt || echo "No requirements.txt found, skipping..."
 
       - name: Generate data (daily)
-        env:
-          CADENCE: daily
         run: |
-          python backend/main.py --cadence "$CADENCE" || echo "demo only"
+          python backend/main.py --cadence "daily" || echo "demo only"
 
       - name: Commit output only
         run: |
-          git config user.name  "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -A output/
-          if git diff --cached --quiet; then
-            echo "No changes in output/, skip commit."
-          else
-            git commit -m "ci(data): daily refresh"
-            git push
-          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add output/
+          git commit -m "ci(data): daily refresh" || echo "No changes to commit"
+          git push
 
       - name: Trigger Cloudflare Pages Redeploy
-        env:
-          CF_DEPLOY_HOOK: ${{ secrets.CF_DEPLOY_HOOK }}
-        run: |
-          echo "Call Cloudflare hook: $CF_DEPLOY_HOOK"
-          CODE=$(curl -sS -o /tmp/cf.out -w "%{http_code}" -X POST "$CF_DEPLOY_HOOK" || true)
-          echo "HTTP status: $CODE"
-          cat /tmp/cf.out || true
-
-          if [ "$CODE" -lt 200 ] || [ "$CODE" -ge 300 ]; then
-            echo "Retrying in 5s..."
-            sleep 5
-            CODE=$(curl -sS -o /tmp/cf.out -w "%{http_code}" -X POST "$CF_DEPLOY_HOOK" || true)
-            echo "HTTP status (retry1): $CODE"
-            cat /tmp/cf.out || true
-          fi
-
-          if [ "$CODE" -lt 200 ] || [ "$CODE" -ge 300 ]; then
-            echo "Retrying in 10s..."
-            sleep 10
-            CODE=$(curl -sS -o /tmp/cf.out -w "%{http_code}" -X POST "$CF_DEPLOY_HOOK" || true)
-            echo "HTTP status (retry2): $CODE"
-            cat /tmp/cf.out || true
-          fi
-
-          if [ "$CODE" -lt 200 ] || [ "$CODE" -ge 300 ]; then
-            echo "Cloudflare hook failed with HTTP $CODE"
-            exit 1
-          fi
-            - name: Trigger Cloudflare Pages Redeploy
         if: success()
         run: |
-      curl -X POST -d {} "$CF_DEPLOY_HOOK"
+          curl -X POST -d '{}' "${{ secrets.CF_DEPLOY_HOOK }}"
