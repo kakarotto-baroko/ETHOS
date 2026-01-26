@@ -1,29 +1,29 @@
 {
   "schema_version": "1.3.x",
-  "cadence": "weekly",
-  "updated_at": "2026-01-25 02:44 UTC",
+  "cadence": "daily",
+  "updated_at": "2026-01-26 02:34 UTC",
   "items": [
     {
       "project": "Karak",
       "bucket": "1000x",
       "structure": "再质押（Restaking 协议）",
       "stage": "S1",
-      "score_total": 69.4,
-      "confidence": 0.9,
+      "score_total": 68.0,
+      "confidence": 0.7,
       "current_price": null,
       "agents": {
-        "A1_vol_mcap": 70,
-        "A2_tvl": 93,
-        "A3_sns": 62,
-        "A4_depth": 49,
-        "B1_leverage": 46,
-        "B2_whale": 89,
-        "B3_dev": 78,
-        "B4_ecosys": 69
+        "A1_vol_mcap": 67,
+        "A2_tvl": 61,
+        "A3_sns": 79,
+        "A4_depth": 72,
+        "B1_leverage": 87,
+        "B2_whale": 54,
+        "B3_dev": 49,
+        "B4_ecosys": 68
       },
       "metrics": {
-        "TVL_3d": 4.9,
-        "VolMcap_1d": 9.7
+        "TVL_3d": 2.3,
+        "VolMcap_1d": 7.9
       },
       "actions": "分批建仓至 50%；失去关键指标转弱减仓"
     },
@@ -32,22 +32,22 @@
       "bucket": "1000x",
       "structure": "社交基础设施（Social Infra）",
       "stage": "S1",
-      "score_total": 76.6,
-      "confidence": 0.9,
+      "score_total": 67.2,
+      "confidence": 0.8,
       "current_price": null,
       "agents": {
-        "A1_vol_mcap": 97,
-        "A2_tvl": 65,
-        "A3_sns": 73,
-        "A4_depth": 68,
-        "B1_leverage": 98,
-        "B2_whale": 90,
-        "B3_dev": 53,
-        "B4_ecosys": 48
+        "A1_vol_mcap": 60,
+        "A2_tvl": 72,
+        "A3_sns": 51,
+        "A4_depth": 63,
+        "B1_leverage": 92,
+        "B2_whale": 77,
+        "B3_dev": 64,
+        "B4_ecosys": 53
       },
       "metrics": {
-        "TVL_3d": 3.8,
-        "VolMcap_1d": 5.0
+        "TVL_3d": 4.0,
+        "VolMcap_1d": 6.0
       },
       "actions": "分批建仓至 50%；失去关键指标转弱减仓"
     },
@@ -56,22 +56,22 @@
       "bucket": "1000x",
       "structure": "数据可用性（DA）",
       "stage": "S2",
-      "score_total": 68.9,
-      "confidence": 0.7,
+      "score_total": 61.7,
+      "confidence": 0.8,
       "current_price": null,
       "agents": {
-        "A1_vol_mcap": 95,
-        "A2_tvl": 78,
-        "A3_sns": 97,
-        "A4_depth": 57,
-        "B1_leverage": 43,
-        "B2_whale": 58,
-        "B3_dev": 55,
-        "B4_ecosys": 50
+        "A1_vol_mcap": 60,
+        "A2_tvl": 50,
+        "A3_sns": 79,
+        "A4_depth": 66,
+        "B1_leverage": 48,
+        "B2_whale": 40,
+        "B3_dev": 98,
+        "B4_ecosys": 63
       },
       "metrics": {
-        "TVL_3d": -1.7,
-        "VolMcap_1d": 7.3
+        "TVL_3d": 0.8,
+        "VolMcap_1d": 3.5
       },
       "actions": "分批建仓至 50%；失去关键指标转弱减仓"
     },
@@ -80,22 +80,22 @@
       "bucket": "10000x",
       "structure": "零知识基础设施（ZK Infra）",
       "stage": "S2",
-      "score_total": 78.2,
+      "score_total": 63.9,
       "confidence": 0.6,
       "current_price": null,
       "agents": {
-        "A1_vol_mcap": 100,
-        "A2_tvl": 58,
-        "A3_sns": 51,
-        "A4_depth": 65,
-        "B1_leverage": 100,
-        "B2_whale": 98,
-        "B3_dev": 68,
-        "B4_ecosys": 73
+        "A1_vol_mcap": 81,
+        "A2_tvl": 54,
+        "A3_sns": 74,
+        "A4_depth": 66,
+        "B1_leverage": 43,
+        "B2_whale": 97,
+        "B3_dev": 50,
+        "B4_ecosys": 46
       },
       "metrics": {
-        "TVL_3d": -2.0,
-        "VolMcap_1d": 3.1
+        "TVL_3d": 4.0,
+        "VolMcap_1d": 7.4
       },
       "actions": "仅事件/短线；严格风控"
     },
@@ -104,28 +104,28 @@
       "bucket": "10000x",
       "structure": "RWA 资产通道",
       "stage": "S2",
-      "score_total": 68.3,
-      "confidence": 0.6,
+      "score_total": 68.4,
+      "confidence": 0.8,
       "current_price": null,
       "agents": {
-        "A1_vol_mcap": 81,
-        "A2_tvl": 67,
-        "A3_sns": 65,
-        "A4_depth": 96,
-        "B1_leverage": 48,
-        "B2_whale": 63,
-        "B3_dev": 59,
-        "B4_ecosys": 69
+        "A1_vol_mcap": 52,
+        "A2_tvl": 82,
+        "A3_sns": 70,
+        "A4_depth": 82,
+        "B1_leverage": 61,
+        "B2_whale": 41,
+        "B3_dev": 84,
+        "B4_ecosys": 85
       },
       "metrics": {
-        "TVL_3d": 1.1,
-        "VolMcap_1d": 3.1
+        "TVL_3d": 4.5,
+        "VolMcap_1d": 2.1
       },
       "actions": "仅事件/短线；严格风控"
     }
   ],
   "market_regime": {
-    "s5_regime": "bull",
-    "score": 0.7
+    "s5_regime": "neutral",
+    "score": 0.4
   }
 }
