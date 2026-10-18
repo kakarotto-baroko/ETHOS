@@ -1,21 +1,22 @@
 {
-  "cadence": "daily",
+  "cadence": "t+3",
   "stages": {
     "S1": {
       "pool": [
-        "Karak",
         "OLAS"
       ]
     },
     "S2": {
       "pool": [
-        "Seed1",
-        "ZKM",
-        "Ondo"
+        "Karak",
+        "Seed1"
       ]
     },
     "S3": {
-      "pool": []
+      "pool": [
+        "ZKM",
+        "Ondo"
+      ]
     },
     "S4": {
       "pool": []
