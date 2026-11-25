@@ -1,67 +1,67 @@
 {
-  "cadence": "t+3",
+  "cadence": "daily",
   "layers": [
     {
       "layer": "L1_supply",
-      "quality": 0.71,
+      "quality": 0.813,
       "probes": [
         {
           "k": "lp_lock_ratio",
-          "v": 77.9
+          "v": 70.7
         },
         {
           "k": "holder_gini",
-          "v": 74.1
+          "v": 71.1
         }
       ]
     },
     {
       "layer": "L2_demand",
-      "quality": 0.7659999999999999,
+      "quality": 0.736,
       "probes": [
         {
           "k": "tg_growth_7d",
-          "v": -1.8
+          "v": 5.3
         },
         {
           "k": "x_engagement",
-          "v": 0.7
+          "v": 2.4
         }
       ]
     },
     {
       "layer": "L3_liquidity",
-      "quality": 0.775,
+      "quality": 0.873,
       "probes": [
         {
           "k": "depth_usd",
-          "v": 76448
+          "v": 245866
         }
       ]
     },
     {
       "layer": "L4_devops",
-      "quality": 0.845,
+      "quality": 0.684,
       "probes": [
         {
           "k": "commit_7d",
-          "v": 37
+          "v": 31
         }
       ]
     },
     {
       "layer": "L5_narrative",
-      "quality": 0.848,
+      "quality": 0.63,
       "probes": [
         {
           "k": "news_pulse",
-          "v": -0.0
+          "v": 0.8
         }
       ]
     },
     {
       "layer": "L6_risk",
-      "quality": 0.746,
+      "quality": 0.772,
       "probes": [
         {
           "k": "contract_risk",
